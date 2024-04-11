@@ -100,7 +100,7 @@ export class CrearCuentaComponent implements OnInit {
 
         // Redirige al usuario a la página de inicio después de un breve tiempo
         setTimeout(() => {
-          this.router.navigate(['/inicio']);
+          this.router.navigate(['/']);
         }, 1000);
       },
       error => {

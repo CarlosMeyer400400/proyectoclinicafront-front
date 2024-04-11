@@ -12,41 +12,57 @@ import { ContactoComponent } from './interfaces/contacto/contacto.component';
 import { ServiciosComponent } from './interfaces/servicios/servicios.component';
 import { UbicacionComponent } from './interfaces/ubicacion/ubicacion.component';
 import { QuienessomosComponent } from './interfaces/quienessomos/quienessomos.component';
-
+import { AvisoPrivacidadComponent } from './interfaces/avisoPrivacidad/avisoPrivacidad.component';
+import { TerminosCondicionesComponent } from './interfaces/terminosCondiciones/terminosCondiciones.component';
+import { PoliticaCookiesComponent } from './interfaces/politicaCookies/politicaCookies.component';
+import { PreguntasComponent } from './interfaces/preguntas/preguntas.component';
+import { E404Component } from './interfaces/e404/e404.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.component';
+import { canActivate, canMatch } from './guards/guards.guard';
+import { InsumosComponent } from './interfaces/insumos/insumos.component';
 const routes: Routes = [
   {
-    path: '',
+    path: 'user',
     component: LayoutComponent,
     children: [
       {
-        path: 'login',
-        component: LoginComponent
-      },
-      {
         path: 'inicio',
-        component: InicioComponent
+        component: InicioComponent,
+        canActivate: [canActivate],
+        canMatch: [canMatch]
       },
       {
         path: 'header',
-        component: HeaderComponent
+        component: HeaderComponent,
+        canActivate: [canActivate],
+        canMatch: [canMatch]
       },
       {
         path: 'footer',
-        component: FooterComponent
+        component: FooterComponent,
+        canActivate: [canActivate],
+        canMatch: [canMatch]
       },
       {
         path: 'contacto',
-        component: ContactoComponent
+        component: ContactoComponent,
+        canActivate: [canActivate],
+        canMatch: [canMatch]
       },
       {
         path: 'servicios',
-        component: ServiciosComponent
+        component: ServiciosComponent,
+        canActivate: [canActivate],
+        canMatch: [canMatch]
       },
       {
         path: 'ubicacion',
-        component: UbicacionComponent
+        component: UbicacionComponent,
+        canActivate: [canActivate],
+        canMatch: [canMatch]
       },
-      
+
       {
         path: 'crear-cuenta',
         component: CrearCuentaComponent
@@ -57,15 +73,58 @@ const routes: Routes = [
       },
       {
         path: 'quienessomos',
-        component: QuienessomosComponent
+        component: QuienessomosComponent,
+        canActivate: [canActivate],
+        canMatch: [canMatch]
       },
       {
-      path: 'agendar',
-      component: AgendarComponent
-    },
+        path: 'agendar',
+        component: AgendarComponent,
+        canActivate: [canActivate],
+        canMatch: [canMatch]
+      },
+      {
+        path: 'avisoprivacidad', component: AvisoPrivacidadComponent,
+        canActivate: [canActivate],
+        canMatch:[canMatch]
+      },
+      {
+        path: 'terminoscondiciones', component: TerminosCondicionesComponent,
+        canActivate: [canActivate],
+        canMatch:[canMatch]
+      },
+      {
+        path: 'politicacookies', component: PoliticaCookiesComponent,
+        canActivate: [canActivate],
+        canMatch:[canMatch]
+      },
+      {
+        path: 'preguntas', component: PreguntasComponent,
+        canActivate: [canActivate],
+        canMatch:[canMatch]
+      },
+      {
+        path: 'perfil', component: PerfilComponent,
+        canActivate: [canActivate],
+        canMatch:[canMatch]
+      },
+      {
+        path: 'editarperfil', component: EditarPerfilComponent,
+        canActivate: [canActivate],
+        canMatch:[canMatch]
+      },
+      {
+        path: 'insumos', component: InsumosComponent,
+        canActivate: [canActivate],
+        canMatch: [canMatch]
+      },
+      {
+        path: '',
+        component: E404Component
+      },
       {
         path: '**',
-        redirectTo: 'login'
+        component: E404Component
 
       }
     ]

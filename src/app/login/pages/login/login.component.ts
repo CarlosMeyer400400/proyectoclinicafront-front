@@ -31,7 +31,9 @@ export class LoginComponent {
       this.loginService.validarUsuario(this.myForm.value).subscribe(res => {
         console.log(res);
         if (res.status === 200) {
-          this.router.navigate(['/inicio']);
+          localStorage.setItem("token",res.token.toString())
+            this.router.navigate(['/user/inicio']);
+
         } else if (res.status === 400) {
           alert('Contraseña incorrecta');
         } else if (res.status === 409) {
@@ -50,7 +52,7 @@ export class LoginComponent {
 
 
 
-  
+
 
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
@@ -98,13 +100,6 @@ export class LoginComponent {
 
   activarBtnCapcha(event: string) {
     this.validRecatcha = false;
-    this.loginService.validarUsuario(this.myForm.value).subscribe(res=>{
-      console.log(res)
-      if(res.status === 200)
-        this.router.navigate(['/inicio'])
-      else
-        return console.log(false, "no se pudo iniciar sesion")
-    })
   }
 }
 

@@ -1,29 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as AOS from 'aos';
+import AOS from 'aos'; // Import 'aos' as default
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  styleUrl: './inicio.component.css'
+  styleUrls: ['./inicio.component.css']
 })
-export class InicioComponent {
+export class InicioComponent implements OnInit {
 
   constructor(private router: Router) { }
+
   ngOnInit(): void {
-    AOS.init()
-    window.addEventListener('load', AOS.refresh)
-    
-
+    AOS.init();
+    window.addEventListener('load', () => {
+      AOS.refresh();
+    });
   }
+
   navegar() {
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
 
-  logosinfondo: string = "assets/images/logosinfondo.png"
-  logoblanco: string = "assets/images/logoblanco.png"
+  // Define your image paths here
+  logosinfondo: string = "assets/images/logosinfondo.png";
+  logoblanco: string = "assets/images/logoblanco.png";
   logo: string = "assets/images/logo.png";
-
   servicio1: string = "assets/images/servicio1.jpg";
   servicio2: string = "assets/images/servicio2.jpg";
   servicio3: string = "assets/images/servicio3.jpg";

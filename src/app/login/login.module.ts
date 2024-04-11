@@ -21,10 +21,12 @@ import { TerminosCondicionesComponent } from './interfaces/terminosCondiciones/t
 import { PoliticaCookiesComponent } from './interfaces/politicaCookies/politicaCookies.component';
 import { AvisoPrivacidadComponent } from './interfaces/avisoPrivacidad/avisoPrivacidad.component';
 import { E404Component } from './interfaces/e404/e404.component';
-
-
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.component';
+import { InsumosComponent } from './interfaces/insumos/insumos.component';
 //CAPTCHA//
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { LoginService } from './services/login.service';
 
 @NgModule({
   declarations: [
@@ -46,13 +48,16 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     TerminosCondicionesComponent,
     PreguntasComponent,
     E404Component,
-    UbicacionComponent
+    PerfilComponent,
+    InsumosComponent,
+    EditarPerfilComponent
   ],
   imports: [
     CommonModule,
     LoginRoutingModule,
     ReactiveFormsModule,
     NgxCaptchaModule
-  ]
+  ],
+  providers:[LoginService]
 })
 export class LoginModule { }

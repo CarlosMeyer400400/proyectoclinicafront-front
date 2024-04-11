@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Email, Password, Response, User, responseValid } from '../interfaces/user.interface';
 import { RespuestaLogin } from '../interfaces/respuestalogin.interface';
 import { DatosEnviados } from '../interfaces/datosenviados.interface';
+import { CreateCita } from '../interfaces/createCita.interface';
+import { DataUser } from '../interfaces/dataUser.interface';
+import { UpdateUser } from '../interfaces/updateUser.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +13,8 @@ import { DatosEnviados } from '../interfaces/datosenviados.interface';
 export class LoginService {
 
   constructor(private http:HttpClient) { }
-  url:string = 'https://proyectoclinicaback-back-production.up.railway.app/'
 
-
+  url:string = 'http://localhost:3000/'
 
   getUserByEmail(emai:string){
     return this.http.get<User>(this.url + 'auth/'+emai)
@@ -20,8 +22,8 @@ export class LoginService {
   crearUsuario(userNew:User){
     return this.http.post<User>(this.url + 'auth', userNew)
   }
-  cambiarPassword(newPassword:Password,id:number){
-    return this.http.patch<User>(this.url + 'auth/'+id, newPassword)
+  cambiarPassword(newPassword:Password,email:string){
+    return this.http.patch<User>(this.url + 'auth/'+email, newPassword)
   }
   checkEmail(dataEmail:{email:string}){
     return this.http.post<responseValid>(this.url + 'recuperar-pass',dataEmail)
@@ -37,6 +39,15 @@ export class LoginService {
   }
   validarUsuario(datos:DatosEnviados){
     return this.http.post<RespuestaLogin>(this.url + 'login',datos)
+  }
+  addCita(data:CreateCita,id:string){
+    return this.http.post<{message:string,status:number}>(this.url + 'auth/citas/'+id,data)
+  }
+  getDataUser(id:string){
+    return this.http.get<DataUser>(this.url + 'auth/user/'+id)
+  }
+  updateUser(id:string,data:UpdateUser){
+    return this.http.patch<UpdateUser>(this.url + 'auth/perfil/'+parseInt(id),data)
   }
 
 }

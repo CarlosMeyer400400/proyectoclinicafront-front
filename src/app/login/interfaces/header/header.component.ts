@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,18 +8,18 @@ import {Router, ActivatedRoute} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
-  menuVariable:boolean=false;
-  menu_icon_variable:boolean=false;
+  menuVariable: boolean = false;
+  menu_icon_variable: boolean = false;
 
-  openMenu(){
-    this.menuVariable =! this.menuVariable;
-    this.menu_icon_variable =! this.menu_icon_variable;
+  openMenu() {
+    this.menuVariable = !this.menuVariable;
+    this.menu_icon_variable = !this.menu_icon_variable;
   }
 
 
-////////////////////////////////
+  ////////////////////////////////
   scrollToSection(sectionId: string): void {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -34,18 +34,21 @@ export class HeaderComponent implements OnInit {
     });
     this.scrollToSection(sectionId);
   }
-  
-  ngOnInit(){
-    
+
+  ngOnInit() {
+
   }
-    navegar(){
-      this.router.navigate(['./login'])
-
-    }
-
-    logoblanco:string="assets/images/logoblanco.png"
+  navegar() {
+    this.router.navigate(['./login'])
 
   }
 
+  logoblanco: string = "assets/images/logoblanco.png"
+  cerrarSesion(){
+    localStorage.clear()
+    this.router.navigate(['/'])
+  }
 
-  
+
+}
+

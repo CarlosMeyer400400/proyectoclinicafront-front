@@ -21,14 +21,19 @@
             <div class="menu" [class.menuClass]="menuVariable">
               <ul>
                 <br>
-                <li routerLink="/Inicio" routerLinkActive="active-link">Inicio</li>
-                <li routerLink="/Servicios" routerLinkActive="active-link">Servicios</li>
-                <li routerLink="/QuienesSomos" routerLinkActive="active-link">¿Quiénes somos?</li>
-                <li routerLink="/Contacto" routerLinkActive="active-link">Contacto</li>
-                <li routerLink="/Agendar" routerLinkActive="active-link">Agendar</li>
-                <li routerLink="/Preguntas" routerLinkActive="active-link" class="fas fa-question"></li>
-                <li routerLink="/Login" routerLinkActive="active-link" class="fas fa-user"></li>
+                <li routerLink="/user/inicio" routerLinkActive="active-link">Inicio</li>
+                <li routerLink="/user/servicios" routerLinkActive="active-link">Servicios</li>
+                <li routerLink="/user/quienessomos" routerLinkActive="active-link">¿Quiénes somos?</li>
+                <li routerLink="/user/contacto" routerLinkActive="active-link">Contacto</li>
+                <li routerLink="/user/agendar" routerLinkActive="active-link">Agendar</li>
+
+                <li routerLink="/user/insumos" routerLinkActive="active-link">MATE</li>
+                <li routerLink="/user/preguntas" routerLinkActive="active-link" class="fas fa-question"></li>
+                <li routerLink="/user/perfil" routerLinkActive="active-link" class="fas fa-user"></li>
+
+                <button (click)="cerrarSesion()">Cerrar sesion</button>
               </ul>
+
     <!-- Agregar breadcrumbs después del menú -->
     <div class="container">
      <app-breadcrumbs></app-breadcrumbs>

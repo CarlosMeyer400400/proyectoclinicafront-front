@@ -162,7 +162,8 @@ export class RecuperarPasswordComponent {
     const newPasword:Password = {
       contrasena: this.passwordForm.controls['contrasena'].value
     }
-       this.loginService.cambiarPassword(newPasword,this.id).subscribe(data =>{
+    console.log(this.id)
+       this.loginService.cambiarPassword(newPasword,this.myForm.controls['email'].value).subscribe(data =>{
          console.log(data)
          this.router.navigate(['inicio'])
        })

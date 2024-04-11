@@ -1,6 +1,6 @@
 <div class="navbar">
-  <a routerLink="/Login">Iniciar Sesión</a>
-  <a routerLink="/Registro">Crear Cuenta</a>
+  <a routerLink="/">Iniciar Sesión</a>
+  <a routerLink="/user/crear-cuenta">Crear Cuenta</a>
 </div>
 <br>
 
@@ -365,7 +365,7 @@
       <ngx-recaptcha2 (success)="activarBtnCapcha($event)" class="captcha" #captchaElem
         [siteKey]="siteKey"></ngx-recaptcha2>
       <p class="text-center mb-3">¿Ya tienes una cuenta? 
-        <a href="#" routerLink="/Login">Iniciar sesión</a></p>
+        <a href="#" routerLink="/">Iniciar sesión</a></p>
 
       <button [disabled]="activarBtnCrear()" type="submit">Crear cuenta</button>
       
