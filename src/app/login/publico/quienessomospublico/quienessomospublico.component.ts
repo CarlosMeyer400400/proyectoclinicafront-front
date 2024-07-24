@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { DataInformacion } from '../../interfaces/dataInformacion.interface';
-//import { DataInformacion } from '../../../../../proyectoclinicafront-front/src/app/login/interfaces/dataInformacion.interface';
+
 @Component({
   selector: 'app-quienessomospublico',
   templateUrl: './quienessomospublico.component.html',
@@ -25,17 +25,15 @@ export class QuienessomospublicoComponent implements OnInit {
   }
 
   getDataInformacion() {
-    const idInformacion = localStorage.getItem('token');
-    if (idInformacion !== null) {
-      this.loginService.getDataInformacion(idInformacion).subscribe(
-        (data: DataInformacion) => {
-          this.informacion = data;
-        },
-        (error) => {
-          console.error('Error obteniendo información:', error);
-        }
-      );
-    }
+    const idInformacion = '1'; // Provide the necessary ID for the API call
+    this.loginService.getDataInformacion(idInformacion).subscribe(
+      (data: DataInformacion) => {
+        this.informacion = data;
+      },
+      (error) => {
+        console.error('Error obteniendo información:', error);
+      }
+    );
   }
 
   toggleMission() {

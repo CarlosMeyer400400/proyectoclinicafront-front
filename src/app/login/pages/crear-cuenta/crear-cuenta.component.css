@@ -6,24 +6,48 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  
+  background: linear-gradient(-135deg, #e3e9f8, #fcfcfc);
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin-top: 60px;
+  /* Añadido para evitar solapamiento con el header */
+  max-width: 800px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.form-container {
+  border: 2px solid #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  text-align: left;
+  background-color: #fff;
+  /* Fondo blanco para el contenedor */
 }
 
 .title {
-  margin-top: 10px;
   text-align: center;
   color: #000000;
   font-size: 30px;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  padding: 20px;
   width: 100%;
-  max-width: 600px;
-  
 }
 
 input,
@@ -32,35 +56,38 @@ select {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  width: 100%;
 }
 
 button {
   padding: 14px;
   background-color: #3498db;
-  /* Mismo color que el fondo para mantener coherencia */
   color: #fff;
-  /* Texto blanco para contrastar */
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
+button:active {
+  background-color: #2e2be0;
+}
+
 .checkboxE {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 16px;
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-/* Estilos para el checkbox */
 .checkboxE input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
 }
 
-/* Estilos para el marcador del checkbox */
 .checkmark {
   position: absolute;
   top: 0;
@@ -71,24 +98,20 @@ button {
   border-radius: 5px;
 }
 
-/* Cambia el color del marcador cuando el checkbox está marcado */
-.checkboxE input:checked ~ .checkmark {
+.checkboxE input:checked~.checkmark {
   background-color: #2196F3;
 }
 
-/* Estilos para la marca de verificación dentro del marcador */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Mostrar la marca de verificación cuando el checkbox está marcado */
-.checkboxE input:checked ~ .checkmark:after {
+.checkboxE input:checked~.checkmark:after {
   display: block;
 }
 
-/* Estilos para la marca de verificación (la "✓") */
 .checkmark:after {
   left: 9px;
   top: 5px;
@@ -97,41 +120,6 @@ button {
   border: solid white;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
-}
-
-.form-container {
-  border: 2px solid #ffffff;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  /* Sombra en el marco gris */
-  max-width: 600px;
-  width: 100%;
-  text-align: left;
-  margin: 20px;
-  box-sizing: border-box;
-  /* Incluye el borde en el ancho total del formulario */
-  margin-top: 40px;
-  
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin-top: 25px;
-  /* CONTENEDOR ALTURA*/
-  margin-bottom: 10px;
-  max-width: 800px;
-  
-}
-
-h2 {
-  margin-bottom: 10px;
-  color: #000000;
-  font-size: 30px;
-  font-weight: bold;
 }
 
 .form-row {
@@ -145,15 +133,9 @@ h2 {
   margin: 5px;
 }
 
-/* Agrega margen inferior a los labels */
 label {
   display: block;
   margin-bottom: 2px;
-}
-
-/* Ajuste de espacio entre bloques */
-.form-row {
-  margin-bottom: 10px;
 }
 
 input {
@@ -169,44 +151,20 @@ input {
   margin-bottom: 1px;
 }
 
-/* Agrega estilos personalizados para el cuadro de entrada y el ícono */
 .custom-input-group {
   border: 1px solid #ccc;
-  /* Agrega un borde a todo el grupo de entrada */
   border-radius: 4px;
-  /* Añade esquinas redondeadas */
   overflow: hidden;
-  /* Oculta cualquier cosa que sobresalga */
 }
 
 .custom-icon-bg {
   background-color: transparent !important;
-  /* Fondo transparente */
   border: 1px solid #ccc !important;
-  /* Borde del mismo color que el fondo */
   border-left: none !important;
-  /* Elimina el borde izquierdo */
 }
 
 .custom-icon-bg i {
   color: inherit;
-  /* Hereda el color del texto del contenedor */
-}
-
-
-/* Estilos responsivos */
-@media screen and (max-width: 600px) {
-  form {
-    width: 100%;
-  }
-}
-
-/* Ajustes para hacerlo responsive */
-@media (max-width: 768px) {
-  .form-group {
-    flex: 100%;
-    /* Cambia a una sola columna */
-  }
 }
 
 .animated-label {
@@ -229,16 +187,26 @@ input {
   color: #007bff;
 }
 
+@media screen and (max-width: 600px) {
+  form {
+    width: 100%;
+  }
 
-/* Ajuste para el ancho de los campos en dispositivos móviles */
-@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
   .form-group {
     width: 100%;
+    margin-bottom: 15px;
   }
 }
 
-
-
+@media (max-width: 768px) {
+  .form-group {
+    flex: 100%;
+  }
+}
 
 .navbar {
   background-color: #1367c2;
@@ -253,33 +221,4 @@ input {
   margin-right: 20px;
   text-decoration: none;
   font-size: 20px;
-  
 }
-
-
-
-
-/* Agrega esta sección para estilos del botón */
-button:active {
-  background-color: #2e2be0;
-  color: white;
-}
-
-/* Agrega esta sección para estilos del mensaje de cuenta creada */
-.message-container {
-  display: none;
-  color: green;
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-
-
-
-/*  .logo {
-    max-width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff; /* Fondo blanco */

@@ -3,92 +3,79 @@ header {
     background-color: #1367c2;
 }
 
-body{
+body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+    overflow-x: hidden;
+    /* Evita el desplazamiento horizontal */
 }
 
 .row {
     display: flex;
     justify-content: space-between;
-  }
-
-  .logo img {
-    max-width: 100%;
-    height: auto;
-  }
-
-
-
-  
-.container{
-    width: 100%;
-  padding: 0 20px; /* Agrega espaciado opcional a los lados */
-  box-sizing: border-box;
+    align-items: center;
 }
 
-.menu ul li{
+.logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    width: 100%;
+    padding: 0 20px;
+    /* Agrega espaciado opcional a los lados */
+    box-sizing: border-box;
+}
+
+.menu ul li {
     list-style-type: none;
     color: #fff;
     display: inline-block;
     font-size: 20px;
     margin-left: 30px;
 }
-.menu ul li:hover{
+
+.menu ul li:hover {
     color: #5dc1e9;
     cursor: pointer;
     transition: 0.4s ease-in-out;
 }
 
-@media only screen and (max-width:999px){
-    .menu{
-        position: fixed;
-        right: -258px;
-        top:64px;
-        width: 100%;
-        height: 100%;
-        background: #1367c2;
-        transition: 0.2s ease-in-out;
-    }
-    .menu ul li{
-        display: block;
-        text-align: left;
-        margin: 0;
-        padding: 10px 0 10px 26px;
-        border-bottom: 1px solid #2c65ebab;
-    }
-    .menu_icon{
-        display: inline-block;
-        position: relative;
-        right: 0;
-        top: 20px;
-        
-    }
-    .menu_icon span{
-        width: 32px;
-        height: 3px;
-        background: #fff;
-        display: block;
-        transition: 0.2s ease-in-out;
-    }
-    .menu_icon span:nth-child(2){
-        margin: 4px 0; 
-    }
-    .menu_icon_Class span:nth-child(2){
-        display: none;
-    }
-    .menu_icon_Class span:nth-child(1){
-        transform: rotate(40deg);
-    }
-    .menu_icon_Class span:nth-child(3){
-        transform: rotate(-40deg);
-        margin-top: -3px;
-    }
-    .menuClass{
-        right: 0;
-        transition: 0.4s ease-in-out;
-    }
-    
+/* Menu icon for mobile view */
+.menu_icon {
+    display: none;
+    cursor: pointer;
+}
 
+.menu_icon span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #fff;
+    transition: all 0.3s;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .menu ul {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+    }
+
+    .menuClass ul {
+        display: flex !important;
+    }
+
+    .menu_icon {
+        display: block;
+    }
+
+    .menu ul li {
+        display: block;
+        margin: 10px 0;
+    }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-  <app-headerpublico></app-headerpublico>
+<app-headerpublico></app-headerpublico>
 
 <html lang="en">
 
@@ -18,7 +18,6 @@
 
 <body>
   <div class="contenedor">
-
     <div class="wrapper">
       <div class="title">Inicio de Sesión</div>
       <img [src]="logosinfondo" alt="Logo">
@@ -31,8 +30,7 @@
             (blur)="moveLabelDown()" (keyup)="handleKeyUp()">
           <label>Correo Electrónico</label>
           <div class="input-group-append">
-            <span *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched">
-            </span>
+            <span *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched"></span>
           </div>
         </div>
         <!-- MENSAJES DE ERROR -->
@@ -44,7 +42,6 @@
           *ngIf="myForm.get('email')?.hasError('pattern') && myForm.get('email')?.touched">
           <i class="fas fa-exclamation-circle"></i>Por favor, ingrese un correo electrónico válido.
         </div>
-
 
         <!-- CONTRASEÑA -->
         <div class="field">
@@ -67,11 +64,9 @@
           mayúsculas, minúsculas, números y 2 caracteres especiales.
         </div>
 
-
         <!-- CAPTCHA -->
         <ngx-recaptcha2 (success)="activarBtnCapcha($event)" class="captcha" #captchaElem
           [siteKey]="siteKey"></ngx-recaptcha2>
-
 
         <div class="content">
           <div>
@@ -84,14 +79,10 @@
           </div>
         </div>
 
-
         <!-- eventos del mouse -->
-
         <div class="botonIniciar" [ngClass]="{'resaltado': resaltarInput}">
-          <input id="register" type="submit" [disabled]="myForm.invalid || validRecatcha" value="Iniciar sesión">
+          <button id="register" type="submit" [disabled]="myForm.invalid || validRecatcha">Iniciar sesión</button>
         </div>
-
-
 
         <script>
           function cambiarColor() {
@@ -100,10 +91,14 @@
           }
         </script>
 
-
         <p style="font-weight: bold;"> ¿No tienes una cuenta?</p>
-
         <a id="register" [routerLink]="['/user/crear-cuenta']" routerLinkActive="active-link">
           Registrarse
           <i class="fa-solid fa-arrow-right"></i>
         </a>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
