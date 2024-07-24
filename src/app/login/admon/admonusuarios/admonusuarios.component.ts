@@ -9,6 +9,8 @@ import { DataUser } from '../../interfaces/dataUser.interface';
 })
 export class AdmonusuariosComponent implements OnInit {
   dataUsers: DataUser[] = [];
+  mostrarDialogo = false;
+  confirmarEliminarEmail: string | null = null;
 
   constructor(private loginService: LoginService) { }
 
@@ -27,16 +29,32 @@ export class AdmonusuariosComponent implements OnInit {
     );
   }
 
+  mostrarDialogoEliminar(email: string) {
+    this.mostrarDialogo = true;
+    this.confirmarEliminarEmail = email;
+  }
+
+  confirmarEliminacion() {
+    if (this.confirmarEliminarEmail) {
+      this.eliminarUsuario(this.confirmarEliminarEmail);
+    }
+  }
+
   eliminarUsuario(email: string) {
     this.loginService.deleteUser(email).subscribe(
       response => {
-        console.log(response); // Maneja la respuesta según tu lógica
-        // Actualiza la lista de usuarios después de eliminar uno
+        console.log('Usuario eliminado correctamente:', response);
         this.getUserData();
+        this.cerrarDialogo();
       },
       error => {
         console.error('Error al eliminar el usuario:', error);
       }
     );
+  }
+
+  cerrarDialogo() {
+    this.mostrarDialogo = false;
+    this.confirmarEliminarEmail = null;
   }
 }

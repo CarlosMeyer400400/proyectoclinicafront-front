@@ -1,48 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <link rel="stylesheet" href="headeradmon.component.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menú de Navegación</title>
+  <link rel="stylesheet" href="headeradmon.component.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
 </head>
 <body>
-    <header>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 col-sm-3 col-3">
-            <div class="logo">
-              <img [src]="logoblanco"[style.width.px]="200" [style.height.px]="100">
-            </div>
-          </div>
-          <div class="col-md-9 col-sm-9 col-9" style="text-align: end;">
-            <div class="menu_icon" [class.menu_icon_Class]="menu_icon_variable" (click)="openMenu()">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <div class="menu" [class.menuClass]="menuVariable">
-              <ul>
-                <br>
-                <li routerLink="/user/inicio" routerLinkActive="active-link">Inicio General</li>
-
-                <li routerLink="/user/admoninformacion" routerLinkActive="active-link">Editor ¿Quiénes somos?</li>
-                <li routerLink="/user/admonpreguntas" routerLinkActive="active-link">Editor Preguntas</li>
-                <li routerLink="/user/admonusuarios" routerLinkActive="active-link">Todos los Usuarios</li>
-                <li routerLink="/user/admoncitas" routerLinkActive="active-link">Todas las citas</li>
-                <li routerLink="/user/admonservicios" routerLinkActive="active-link">Todos los servicios</li>
-
-
-             
-
-                <button (click)="cerrarSesion()">Cerrar sesion</button>
-              </ul>
-
-    <!-- Agregar breadcrumbs después del menú -->
+  <header>
     <div class="container">
-     <app-breadcrumbs></app-breadcrumbs>
-    </div>
-            </div>
-          </div>
-        </div>
+      <div class="logo">
+        <img [src]="logoblanco" alt="Logo" class="logo-img">
       </div>
-      </header>
+      <nav>
+        <div class="menu-icon" (click)="openMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul [class.menu-open]="menuVariable" class="menu">
+          <li (click)="setActiveLink($event)" [class.active-link]="isActive('/user/inicio')">
+            <a routerLink="/user/inicio" routerLinkActive="active-link">Inicio General</a>
+          </li>
+          <li (click)="setActiveLink($event)" [class.active-link]="isActive('/user/admoninformacion')">
+            <a routerLink="/user/admoninformacion" routerLinkActive="active-link">Editor ¿Quiénes somos?</a>
+          </li>
+          <li (click)="setActiveLink($event)" [class.active-link]="isActive('/user/admonpreguntas')">
+            <a routerLink="/user/admonpreguntas" routerLinkActive="active-link">Editor Preguntas</a>
+          </li>
+          <li (click)="setActiveLink($event)" [class.active-link]="isActive('/user/admonusuarios')">
+            <a routerLink="/user/admonusuarios" routerLinkActive="active-link">Todos los Usuarios</a>
+          </li>
+          <li (click)="setActiveLink($event)" [class.active-link]="isActive('/user/admoncitas')">
+            <a routerLink="/user/admoncitas" routerLinkActive="active-link">Todas las citas</a>
+          </li>
+          <li (click)="setActiveLink($event)" [class.active-link]="isActive('/user/admonservicios')">
+            <a routerLink="/user/admonservicios" routerLinkActive="active-link">Todos los servicios</a>
+          </li>
+          <li>
+            <button (click)="cerrarSesion()" class="btn-cerrar-sesion">Cerrar sesión</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <app-breadcrumbs></app-breadcrumbs>
+  </div>
 </body>
 </html>

@@ -21,43 +21,27 @@ export class HeaderadmonComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   menuVariable: boolean = false;
-  menu_icon_variable: boolean = false;
 
   openMenu() {
     this.menuVariable = !this.menuVariable;
-    this.menu_icon_variable = !this.menu_icon_variable;
   }
 
-
-  ////////////////////////////////
-  scrollToSection(sectionId: string): void {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-  navigateToSection(sectionId: string): void {
-    this.router.navigate([], {
-      fragment: sectionId,
-      relativeTo: this.route,
-      queryParamsHandling: 'merge'
-    });
-    this.scrollToSection(sectionId);
+  setActiveLink(event: Event) {
+    const menuItems = document.querySelectorAll('.menu li');
+    menuItems.forEach(item => item.classList.remove('active-link'));
+    (event.target as HTMLElement).parentElement?.classList.add('active-link');
   }
 
-  ngOnInit() {
-
-  }
-  navegar() {
-    this.router.navigate(['/'])
-
+  isActive(route: string): boolean {
+    return this.router.url === route;
   }
 
-  logoblanco: string = "assets/images/logoblanco.png"
+  ngOnInit() {}
+
   cerrarSesion(){
-    localStorage.clear()
-    this.router.navigate(['/'])
+    localStorage.clear();
+    this.router.navigate(['/']);
   }
 
-
+  logoblanco: string = "assets/images/logoblanco.png";
 }

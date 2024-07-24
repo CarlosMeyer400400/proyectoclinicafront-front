@@ -1,13 +1,21 @@
 <app-headeradmon></app-headeradmon>
+<link rel="stylesheet" href="admonservicios.component.css">
 
 <div class="servicios-container">
   <h2>Servicios:</h2>
 
   <ul class="servicios-list">
     <li *ngFor="let servicio of servicios" class="servicio-item">
-      <img [src]="servicio.imagen" alt="" style="height: 100px;"> - {{ servicio.nombre }} - {{ servicio.descripcion }} - {{ servicio.costo | currency }}
-      <button class="btn-editar" (click)="editarServicio(servicio)">Editar</button>
-      <button class="btn-eliminar" (click)="eliminarServicio(servicio.id_servicio)">Eliminar</button>
+      <img [src]="servicio.imagen" alt="{{ servicio.nombre }}" class="servicio-imagen">
+      <div class="servicio-info">
+        <h3>{{ servicio.nombre }}</h3>
+        <p>{{ servicio.descripcion }}</p>
+        <p>{{ servicio.costo | currency }}</p>
+      </div>
+      <div class="servicio-acciones">
+        <button class="btn-editar" (click)="editarServicio(servicio)">Editar</button>
+        <button class="btn-eliminar" (click)="mostrarConfirmacion(servicio.id_servicio)">Eliminar</button>
+      </div>
     </li>
   </ul>
 
@@ -20,7 +28,7 @@
       <input type="text" id="nombre" formControlName="nombre">
 
       <label for="descripcion">Descripción:</label>
-      <input type="text" id="descripcion" formControlName="descripcion">
+      <textarea id="descripcion" formControlName="descripcion"></textarea>
 
       <label for="costo">Costo:</label>
       <input type="number" id="costo" formControlName="costo">
@@ -29,30 +37,47 @@
     </form>
   </div>
 
-  <div class="agregar-servicio">
+  <div class="agregar-servicio" *ngIf="!editMode">
     <h3>Agregar Nuevo Servicio</h3>
-    <form [formGroup]="servicioForm" (submit)="agregarServicio()" class="servicio-form" *ngIf="!editMode">
+    <form [formGroup]="servicioForm" (submit)="agregarServicio()" class="servicio-form">
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" formControlName="nombre">
 
       <label for="descripcion">Descripción:</label>
-      <input type="text" id="descripcion" formControlName="descripcion">
+      <textarea id="descripcion" formControlName="descripcion"></textarea>
 
       <label for="costo">Costo:</label>
       <input type="number" id="costo" formControlName="costo">
 
-      <label for="imagen">imagen:</label>
-      <input type="file" id="costo" (change)="addImg($event)">
+      <label for="imagen">Imagen:</label>
+      <input type="file" id="imagen" (change)="addImg($event)">
 
       <button type="submit" class="btn-agregar">Agregar</button>
     </form>
   </div>
+
+  <div *ngIf="mostrarMensaje" class="confirmacion-tarjeta">
+    <p>¿Deseas eliminar de forma permanente este servicio?</p>
+    <button class="btn-confirmar" (click)="confirmarEliminarServicio()">Sí</button>
+    <button class="btn-cancelar" (click)="cancelarEliminar()">No</button>
+  </div>
 </div>
 
 <style>
-
 .servicios-container {
-  margin-top: 20px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 90%;
+}
+
+.servicios-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #333;
 }
 
 .servicios-list {
@@ -61,12 +86,37 @@
 }
 
 .servicio-item {
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  padding: 15px;
   border-bottom: 1px solid #ddd;
 }
 
+.servicio-imagen {
+  height: 100px;
+  margin-right: 20px;
+  border-radius: 5px;
+}
+
+.servicio-info {
+  flex: 1;
+}
+
+.servicio-info h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.25rem;
+}
+
+.servicio-info p {
+  margin: 5px 0;
+}
+
+.servicio-acciones {
+  display: flex;
+  gap: 10px;
+}
+
 .btn-editar, .btn-eliminar {
-  margin-left: 10px;
   padding: 5px 10px;
   border: none;
   border-radius: 3px;
@@ -83,39 +133,92 @@
   color: white;
 }
 
-.formulario-edicion {
+.formulario-edicion, .agregar-servicio {
   margin-top: 20px;
 }
 
 .servicio-form {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .servicio-form label {
-  margin-bottom: 5px;
+  font-weight: bold;
 }
 
-.servicio-form input {
-  margin-bottom: 10px;
-  padding: 5px;
+.servicio-form input, .servicio-form textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
 }
 
 .btn-guardar, .btn-agregar {
-  padding: 5px 10px;
+  padding: 10px;
+  background-color: #2c65ebab;
+  color: white;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.btn-guardar {
+.btn-guardar:hover, .btn-agregar:hover {
+  background-color: #23599c;
+}
+
+.confirmacion-tarjeta {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.confirmacion-tarjeta p {
+  margin-bottom: 20px;
+}
+
+.btn-confirmar, .btn-cancelar {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-confirmar {
   background-color: #4CAF50;
   color: white;
 }
 
-.btn-agregar {
-  background-color: #008CBA;
+.btn-cancelar {
+  background-color: #f44336;
   color: white;
 }
 
+@media (max-width: 768px) {
+  .servicio-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .servicio-info {
+    margin-top: 10px;
+  }
+
+  .servicio-acciones {
+    margin-top: 10px;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-editar, .btn-eliminar {
+    width: 100%;
+  }
+}
 </style>

@@ -16,6 +16,8 @@ export class AdmonserviciosComponent implements OnInit {
   servicioEditadoId: number | null = null;
   nameFile: string = '';
   imagenes: File[] = [];
+  mostrarMensaje: boolean = false;
+  confirmarEliminarId: number | null = null;
 
   constructor(private fb: FormBuilder, private loginService: LoginService) {
     this.servicioForm = this.fb.group({
@@ -30,7 +32,7 @@ export class AdmonserviciosComponent implements OnInit {
     this.obtenerServicios();
   }
 
-  addImg(event:any){
+  addImg(event: any) {
     const target = event.target as HTMLInputElement;
     if (target?.files?.length) {
       for (let i = 0; i < target.files.length; i++) {
@@ -39,6 +41,7 @@ export class AdmonserviciosComponent implements OnInit {
       }
     }
   }
+
   obtenerServicios(): void {
     this.loginService.getServicios().subscribe(
       (data: DataServicio[]) => {
@@ -94,17 +97,31 @@ export class AdmonserviciosComponent implements OnInit {
     }
   }
 
-  eliminarServicio(id: number): void {
-    this.loginService.removeServicio(id).subscribe(
-      (response) => {
-        this.mensaje = 'Servicio eliminado correctamente';
-        this.obtenerServicios();
-      },
-      (error) => {
-        console.error('Error al eliminar servicio', error);
-        this.mensaje = 'Error al eliminar servicio';
-      }
-    );
+  mostrarConfirmacion(id: number): void {
+    this.confirmarEliminarId = id;
+    this.mostrarMensaje = true;
+  }
+
+  confirmarEliminarServicio(): void {
+    if (this.confirmarEliminarId !== null) {
+      this.loginService.removeServicio(this.confirmarEliminarId).subscribe(
+        (response) => {
+          this.mensaje = 'Servicio eliminado correctamente';
+          this.obtenerServicios();
+          this.mostrarMensaje = false;
+        },
+        (error) => {
+          console.error('Error al eliminar servicio', error);
+          this.mensaje = 'Error al eliminar servicio';
+          this.mostrarMensaje = false;
+        }
+      );
+    }
+  }
+
+  cancelarEliminar(): void {
+    this.mostrarMensaje = false;
+    this.confirmarEliminarId = null;
   }
 
   resetForm(): void {

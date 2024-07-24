@@ -11,6 +11,8 @@ import { DataPreguntas } from '../../interfaces/dataPreguntas.interface';
 export class AdmonpreguntasComponent implements OnInit {
   preguntas: DataPreguntas[] = [];
   mostrarFormularioEdicion = false;
+  mostrarDialogo = false;
+  confirmarEliminarId: string | null = null;
   updatePreguntasForm!: FormGroup;
   agregarPreguntasForm!: FormGroup;
 
@@ -83,15 +85,28 @@ export class AdmonpreguntasComponent implements OnInit {
     );
   }
 
-  eliminarPregunta(idPregunta: string) {
-    this.loginService.deletePregunta(idPregunta).subscribe(
-      (response) => {
-        console.log('Pregunta eliminada correctamente:', response);
-        this.getPreguntas();
-      },
-      (error) => {
-        console.error('Error al eliminar pregunta:', error);
-      }
-    );
+  confirmarEliminarPregunta(idPregunta: string) {
+    this.mostrarDialogo = true;
+    this.confirmarEliminarId = idPregunta;
+  }
+
+  eliminarPregunta(idPregunta: string | null) {
+    if (idPregunta) {
+      this.loginService.deletePregunta(idPregunta).subscribe(
+        (response) => {
+          console.log('Pregunta eliminada correctamente:', response);
+          this.getPreguntas();
+          this.cerrarDialogo();
+        },
+        (error) => {
+          console.error('Error al eliminar pregunta:', error);
+        }
+      );
+    }
+  }
+
+  cerrarDialogo() {
+    this.mostrarDialogo = false;
+    this.confirmarEliminarId = null;
   }
 }

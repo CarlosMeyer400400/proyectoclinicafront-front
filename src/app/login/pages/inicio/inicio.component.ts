@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
+import { DataServicio } from '../../interfaces/dataServicio.interface';
 import AOS from 'aos'; // Import 'aos' as default
 
 @Component({
@@ -8,16 +10,29 @@ import AOS from 'aos'; // Import 'aos' as default
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
+  servicios: DataServicio[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit(): void {
     AOS.init();
     window.addEventListener('load', () => {
       AOS.refresh();
     });
+    this.getServicios(); // Llama a getServicios() para obtener los servicios al inicializar el componente
   }
 
+
+  getServicios() {
+    this.loginService.getServicios().subscribe(
+      (data) => {
+        this.servicios = data;
+      },
+      (error) => {
+        console.error('Error obteniendo servicios:', error);
+      }
+    );
+  }
   navegar() {
     this.router.navigate(['/']);
   }
