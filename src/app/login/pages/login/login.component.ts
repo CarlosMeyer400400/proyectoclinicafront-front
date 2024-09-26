@@ -16,6 +16,7 @@ export class LoginComponent {
   logosinfondo: string = "assets/images/logosinfondo.png";
   siteKey = '6Ld9vlUpAAAAAIBxg_WAyAL3v782D0Sv_HefWBjy';
   validRecatcha: boolean = true;
+
   myForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
     contrasena: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/)]],
@@ -26,43 +27,47 @@ export class LoginComponent {
       this.myForm.markAllAsTouched();
       return;
     }
-
-    try {
-      let fecha = new Date().toLocaleDateString();
-      this.loginService.getIp().subscribe(data => {
-        this.loginService.validarUsuario({
-          email: this.myForm.controls['email'].value,
-          contrasena: this.myForm.controls['contrasena'].value,
-          fecha: fecha,
-          ip: data.ip
-        }).subscribe(res => {
-          console.log(res);
-          if (res.status === 200) {
-            localStorage.setItem("token", res.token.toString())
-            this.router.navigate(['/user/inicio']);
-
-          } else if (res.status === 400) {
-            alert('Contraseña incorrecta');
-          } else if (res.status === 409) {
-            alert('Número de intentos alcanzados, espera 5 minutos');
-          } else if (res.status === 302) {
-            alert('Email no registrado');
-          } else {
-            alert('Error de lo que sea pero error');
-          }
-        });
-      })
-
-    } catch (error) {
-      alert('Email no encontrado');
-      console.log(error);
-    }
+  
+    const email = this.myForm.controls['email'].value;
+    const contrasena = this.myForm.controls['contrasena'].value;
+  
+    let fecha = new Date().toLocaleDateString();
+  
+    this.loginService.getIp().subscribe(data => {
+      this.loginService.validarUsuario({
+        email: email,
+        contrasena: contrasena,
+        fecha: fecha,
+        ip: data.ip
+      }).subscribe(res => {
+        if (res.status === 200) {
+          localStorage.setItem("token", res.token.toString());
+  
+          // Obtener detalles del usuario después de autenticarse
+          this.loginService.getUserByEmail(email).subscribe(user => {
+            localStorage.setItem("userRol", user.rol); // Guardar el rol en el localStorage
+  
+            // Redirigir según el rol
+            if (user.rol === 'admin') {
+              this.router.navigate(['/user/admonservicios']);
+            } else {
+              this.router.navigate(['/user/inicio']);
+            }
+          });
+  
+        } else if (res.status === 400) {
+          alert('Contraseña incorrecta');
+        } else if (res.status === 409) {
+          alert('Número de intentos alcanzados, espera 5 minutos');
+        } else if (res.status === 302) {
+          alert('Email no registrado');
+        } else {
+          alert('Error desconocido');
+        }
+      });
+    });
   }
-
-
-
-
-
+  
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
@@ -111,4 +116,3 @@ export class LoginComponent {
     this.validRecatcha = false;
   }
 }
-

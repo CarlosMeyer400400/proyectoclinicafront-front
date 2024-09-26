@@ -17,6 +17,7 @@ export class PerfilComponent implements OnInit {
     telefono: "",
     email: "",
     nombreu: "",
+
   };
 
   constructor(private loginService: LoginService) { }

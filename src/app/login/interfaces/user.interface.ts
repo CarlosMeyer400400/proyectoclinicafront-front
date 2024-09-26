@@ -10,6 +10,7 @@ export interface User {
   nombreu:    string;
   contrasena: string;
   telefono: number;
+  rol:     string;
 }
 
 export interface Email{

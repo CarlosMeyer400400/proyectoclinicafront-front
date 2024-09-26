@@ -4,9 +4,9 @@ export interface DataUser {
   nombre:          string;
   apellidop:       string;
   apellidom:       string;
-  fecha: string;
+  fecha:           string;
   sexo:            string;
   telefono:        string;
-  email:          string;
+  email:           string;
   nombreu:         string;
 }

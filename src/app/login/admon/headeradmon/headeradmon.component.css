@@ -1,3 +1,4 @@
+/* Reset styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -8,6 +9,7 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+/* Header styles */
 header {
     background-color: #1367c2;
     padding: 15px 20px;
@@ -20,29 +22,16 @@ header {
     flex-wrap: wrap;
 }
 
+/* Logo styles */
 .logo-img {
     width: 200px;
     height: auto;
 }
 
+/* Menu styles */
 nav {
     flex: 1;
     text-align: right;
-}
-
-.menu-icon {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    margin-left: auto;
-}
-
-.menu-icon span {
-    height: 3px;
-    width: 25px;
-    background: white;
-    margin: 4px 0;
-    transition: 0.4s;
 }
 
 .menu {
@@ -64,7 +53,7 @@ nav {
     text-decoration: none;
     color: white;
     padding: 10px 15px;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.3s;
     border: none;
     background: none;
     cursor: pointer;
@@ -75,41 +64,45 @@ nav {
 .menu li button:hover {
     background-color: #0a4a8a;
     border-radius: 5px;
+    transform: translateY(-3px); /* Efecto de levantamiento */
 }
 
+/* Active link style */
 .active-link {
     background-color: #0a4a8a !important;
     border-radius: 5px;
 }
 
-.menu-open {
-    display: flex;
+/* Menu icon (hamburger) */
+.menu-icon {
+    display: none;
     flex-direction: column;
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    background-color: #1367c2;
-    width: 200px;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.btn-cerrar-sesion {
-    background-color: #333333;
-    /* Nuevo color gris oscuro */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
+    margin-left: auto;
 }
 
-.btn-cerrar-sesion:hover {
-    background-color: #555555;
-    /* Color gris oscuro al pasar el ratón */
+.menu-icon span {
+    height: 3px;
+    width: 25px;
+    background: white;
+    margin: 4px 0;
+    transition: 0.4s;
 }
 
+/* Menu toggle animation */
+.menu-icon.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-icon.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+}
+
+.menu-icon.active span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+}
+
+/* Menu for mobile */
 @media (max-width: 768px) {
     .menu {
         display: none;
@@ -122,5 +115,29 @@ nav {
 
     .menu-open {
         display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: #1367c2;
+        width: 200px;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 100;
     }
+}
+
+/* Close session button */
+.btn-cerrar-sesion {
+    background-color: #333333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-cerrar-sesion:hover {
+    background-color: #555555;
 }
