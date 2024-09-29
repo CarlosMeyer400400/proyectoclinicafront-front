@@ -7,8 +7,6 @@ Ingeniería en Desarrollo y Gestión de Software
 - CRUZ LUNA ARLETTE
 - CARLOS EZEQUIEL MEYER MEDINA
 
-
-
 ## 1.  Descripción del Proyecto
 Este proyecto consiste en una Aplicación Web desarrollada para la clínica dental Dental Crown ubicada en Huejutla de Reyes Hidalgo. El sitio web permite a los pacientes agendar citas, realizar pagos de manera segura en línea, y acceder a servicios especializados y toda la información referente a la clínica. 
 
