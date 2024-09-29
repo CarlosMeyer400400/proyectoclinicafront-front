@@ -156,10 +156,6 @@ La estrategia de despliegue para la **aplicación web** utiliza **Netlify** para
 
 ## 6. Instalación
 
-npm start
-
-La aplicación estará disponible en http://localhost:4200
-
  **1. Clonar el Repositorio** 
  Primero, clona el repositorio en tu máquina local. Asegúrate de tener Git instalado. 
  ```bash
