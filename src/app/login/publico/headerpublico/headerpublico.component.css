@@ -1,14 +1,16 @@
-/* General styles */
-header {
-    background-color: #1367c2;
-    padding: 10px 20px;
-    color: white;
-}
-
+/* Estilos generales */
 body, ul {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #1367c2;
+    padding: 10px 20px;
+    color: white;
+    position: relative;
+    z-index: 1000; /* Para que el menú siempre esté encima */
 }
 
 .container {
@@ -17,12 +19,13 @@ body, ul {
     align-items: center;
 }
 
+/* Logo */
 .logo img {
     max-width: 150px;
     height: auto;
 }
 
-/* Menu styles */
+/* Menú para pantallas grandes */
 .menu ul {
     list-style: none;
     display: flex;
@@ -36,23 +39,20 @@ body, ul {
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* Hover effect for menu options */
+/* Hover sobre los enlaces */
 .menu ul li:hover {
     color: #5dc1e9;
-    transform: translateY(-3px); /* Ligeramente levanta el texto */
+    transform: translateY(-3px);
 }
 
-/* Menu icon (hamburger) */
+/* Ícono de menú (hamburguesa) en móviles */
 .menu_icon {
     display: none;
     cursor: pointer;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     gap: 5px;
-    position: absolute;
-    top: 50px;
-    right: 50px;
 }
 
 .menu_icon span {
@@ -63,24 +63,72 @@ body, ul {
     transition: all 0.3s;
 }
 
-/* Responsive styles for mobile */
+.close-icon {
+    font-size: 40px;
+    color: white; /* Asegura que sea blanco */
+    position: absolute; /* Fija la "x" en una posición absoluta */
+    top: 10px; /* Ajusta la posición vertical */
+    right: 10px; /* Ajusta la posición horizontal */
+    z-index: 1002; /* Asegúrate de que esté sobre otros elementos */
+}
+
+
+.sheet {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 240px;
+    height: 100%;
+    background-color: #1367c2;
+    color: white;
+    padding: 20px;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    z-index: 1001;
+}
+
+/* Estilos responsivos */
 @media (max-width: 768px) {
-    .menu ul {
-        display: none;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-top: 40px; /* Se separa el menú de las 3 líneas */
-    }
-
-    .menuClass ul {
-        display: flex !important;
-    }
-
+    /* Muestra el icono del menú en pantallas pequeñas */
     .menu_icon {
         display: flex;
     }
 
-    .menu ul li {
-        margin: 10px 0;
+    /* Ocultar el menú normal en dispositivos móviles */
+    .menu {
+        display: none;
+    }
+
+    /* Menú lateral (sheet) para móviles */
+    .sheet {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 240px;
+        height: 100%;
+        background-color: #1367c2;
+        color: white;
+        padding: 20px;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+        z-index: 1001; /* Asegura que el menú lateral esté sobre el contenido */
+    }
+
+    .sheet ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .sheet ul li {
+        font-size: 18px;
+        cursor: pointer;
+        color: white;
+    }
+
+    .sheet ul li:hover {
+        color: #5dc1e9;
     }
 }
