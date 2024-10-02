@@ -5,7 +5,8 @@
     <div class="content">
       <h1>Clínica Dental Crown</h1>
       <p>Experiencia en atención dental con nuestro equipo experto y tecnología avanzada</p>
-      <button class="btn" routerLink="/">Reserva una Cita</button>
+      <!-- Modificar el botón para que use la función reservarCita() -->
+      <button class="btn" (click)="reservarCita()">Reserva una Cita</button>
     </div>
   </div>
 
@@ -15,6 +16,7 @@
 
   <!-- Indicadores -->
   <div class="indicators">
-    <span *ngFor="let image of images; let i = index" [class.active]="i === currentIndex" (click)="selectSlide(i)"></span>
+    <span *ngFor="let image of images; let i = index" [class.active]="i === currentIndex"
+      (click)="selectSlide(i)"></span>
   </div>
 </div>
