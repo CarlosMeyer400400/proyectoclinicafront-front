@@ -11,9 +11,9 @@ describe('PreguntaspublicoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PreguntaspublicoComponent ]
+      declarations: [PreguntaspublicoComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

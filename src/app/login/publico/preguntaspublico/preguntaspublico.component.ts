@@ -10,6 +10,7 @@ import { DataPreguntas } from '../../interfaces/dataPreguntas.interface';
 export class PreguntaspublicoComponent implements OnInit {
 
   preguntas: DataPreguntas[] = [];
+  expandedIndex: number | null = null;
 
   constructor(private loginService: LoginService) { }
 
@@ -26,5 +27,14 @@ export class PreguntaspublicoComponent implements OnInit {
         console.error('Error obteniendo preguntas:', error);
       }
     );
+  }
+
+  // Funciones para manejar el colapso de las preguntas
+  toggleCollapse(index: number) {
+    this.expandedIndex = this.expandedIndex === index ? null : index;
+  }
+
+  isExpanded(index: number): boolean {
+    return this.expandedIndex === index;
   }
 }
