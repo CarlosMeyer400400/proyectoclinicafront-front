@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="header.component.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img [src]="logoblanco" alt="Dental Clinic Logo">
+            </div>
+            <div class="menu_icon" [class.menu_icon_Class]="menu_icon_variable" (click)="openMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="menu" [class.menuClass]="menuVariable">
+                <ul>
+                    <li routerLink="/user/inicio" routerLinkActive="active-link">Inicio</li>
+                    <li routerLink="/user/servicios" routerLinkActive="active-link">Servicios</li>
+                    <li routerLink="/user/quienessomos" routerLinkActive="active-link">¿Quiénes somos?</li>
+                    <li routerLink="/user/contacto" routerLinkActive="active-link">Contacto</li>
+                    <li routerLink="/user/historial" routerLinkActive="active-link">Historial</li>
+                    <li routerLink="/user/agendar" routerLinkActive="active-link">Agendar</li>
+                    <li routerLink="/user/preguntas" routerLinkActive="active-link">Preguntas</li>
+                    <li routerLink="/user/perfil" routerLinkActive="active-link">Perfil</li>
+                    <button (click)="cerrarSesion()">Cerrar sesión</button>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Breadcrumbs debajo del menú -->
+        <div class="container">
+            <app-breadcrumbs></app-breadcrumbs>
+        </div>
+    </header>
+</body>
+</html>

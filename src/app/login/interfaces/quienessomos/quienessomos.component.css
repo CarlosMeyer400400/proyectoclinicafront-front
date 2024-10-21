@@ -1,0 +1,159 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Estilo de los títulos llamativos para "Sobre", "Misión", y "Visión" */
+  h2 {
+    font-family: 'Fredoka';
+    /* Usamos una fuente más moderna y llamativa */
+    font-weight: 700;
+    /* Negritas más marcadas */
+    font-size: 2rem;
+    /* Tamaño más grande */
+    color: #2c3e50;
+    /* Color oscuro y elegante */
+  
+    letter-spacing: 1px;
+    /* Espaciado entre letras para mayor claridad */
+    margin-bottom: 10px;
+    /* Espaciado inferior para separarlo del texto */
+  }
+  
+  /* Contenedor de cada sección con fondo azul pastel y bordes redondeados */
+  .section-container {
+    background-color: #d4e9f7;
+    /* Azul pastel bajito */
+    border: 2px solid #b0d4e3;
+    /* Borde más oscuro */
+    border-radius: 15px;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 1000px;
+    /* Reducimos el ancho máximo del contenedor para centrar mejor */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* Sombra suave */
+    position: relative;
+    /* Para que el diente esté dentro del contenedor */
+    display: flex;
+    /* Centrar el contenido del contenedor */
+    justify-content: space-between;
+    /* Distribuir espacio entre imagen y texto */
+    align-items: center;
+    /* Centrar verticalmente imagen y texto */
+  }
+  
+  /* Ícono del diente */
+  .tooth-icon {
+    font-size: 30px;
+    color: #ffffff;
+    background-color: #b0d4e3;
+    /* Fondo para que resalte el diente */
+    padding: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra alrededor del diente */
+    transition: transform 0.3s ease-in-out;
+    /* Transición suave para la animación */
+  }
+  
+  /* Animación del diente cuando se pasa por su cuadro correspondiente */
+  #sobre-crown:hover .tooth-icon,
+  #mision:hover .tooth-icon,
+  #vision:hover .tooth-icon {
+    transform: rotate(360deg);
+    /* El diente gira al pasar el cursor */
+  }
+  
+  /* Diseño de flexbox para organizar imagen y texto */
+  .section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    /* Eliminamos el gap entre imagen y texto */
+  }
+  
+  /* Estilo para el texto */
+  .text-left,
+  .text-right {
+    flex: 1;
+    margin: 0;
+    /* Eliminamos márgenes */
+    padding-left: 10px;
+    /* Espaciado mínimo entre imagen y texto */
+    text-align: justify;
+    /* Justificamos el texto */
+  }
+  
+  /* Ajuste de tamaño específico para cada imagen */
+  .image-sobre {
+    width: 450px;
+    /* Tamaño personalizado para la imagen "Sobre" */
+    height: 300px;
+    /* Altura personalizada */
+    object-fit: cover;
+    /* Para que se ajuste al tamaño dado sin deformarse */
+    border-radius: 12px;
+  }
+  
+  .image-mision {
+    width: 420px;
+    /* Tamaño personalizado para la imagen "Misión" */
+    height: 290px;
+    /* Altura personalizada */
+    object-fit: cover;
+    border-radius: 12px;
+    margin-left: 20px;
+    /* Movemos la imagen más a la derecha */
+  }
+  
+  .image-vision {
+    width: 450px;
+    /* Tamaño personalizado para la imagen "Visión" */
+    height: 290px;
+    /* Altura personalizada */
+    object-fit: cover;
+    border-radius: 12px;
+    margin-left: 10px;
+    /* Movemos la imagen más a la derecha */
+  }
+  
+  /* Hover en la imagen */
+  .section-image:hover {
+    transform: scale(1.05);
+    /* Aumenta el tamaño de la imagen al hacer hover */
+  }
+  
+  /* Ajustes responsivos */
+  @media only screen and (max-width: 768px) {
+    .section {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .section-image {
+      width: 100%;
+      /* La imagen ocupa todo el ancho disponible en móviles */
+      height: auto;
+      /* La altura se ajusta de forma automática en móviles */
+      margin-bottom: 10px;
+      /* Espacio menor entre la imagen y el texto en móviles */
+      transform: none;
+      /* Quita el desplazamiento de la imagen en móviles */
+    }
+  
+    /* Ajustar la posición del ícono del diente en móviles */
+    .tooth-icon {
+      top: -15px;
+      right: -15px;
+      font-size: 25px;
+      /* Tamaño menor en móviles */
+      padding: 8px;
+    }
+  }

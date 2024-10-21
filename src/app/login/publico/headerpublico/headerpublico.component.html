@@ -1,0 +1,41 @@
+<header>
+  <div class="container">
+      <div class="logo">
+          <img [src]="logoblanco" alt="Dental Crown Logo">
+      </div>
+      
+      <!-- Icono de menú hamburguesa para dispositivos móviles -->
+      <div class="menu_icon" (click)="toggleMenu()">
+          <span *ngIf="!isOpen"></span>
+          <span *ngIf="!isOpen"></span>
+          <span *ngIf="!isOpen"></span>
+          <span *ngIf="isOpen" class="close-icon" style="color: white;">&times;</span> <!-- Icono "X" cuando se abre el menú -->
+      </div>
+
+      <!-- Menú en pantallas grandes -->
+      <nav class="menu" *ngIf="!isOpen || !isMobile">
+          <ul>
+              <li routerLink="/user/iniciopublico" routerLinkActive="active-link">Inicio</li>
+              <li routerLink="/user/serviciospublico" routerLinkActive="active-link">Servicios</li>
+              <li routerLink="/user/quienessomospublico" routerLinkActive="active-link">¿Quiénes somos?</li>
+              <li routerLink="/user/contactopublico" routerLinkActive="active-link">Contacto</li>
+              <li routerLink="/user/preguntaspublico" routerLinkActive="active-link">Preguntas</li>
+              <li routerLink="/">Iniciar Sesión</li>
+              <li routerLink="/user/crear-cuenta">Crear Cuenta</li>
+          </ul>
+      </nav>
+
+      <!-- Menú lateral (sheet) en dispositivos móviles -->
+      <nav class="sheet" *ngIf="isOpen && isMobile">
+          <ul>
+              <li routerLink="/user/iniciopublico" routerLinkActive="active-link" (click)="closeMenu()">Inicio</li>
+              <li routerLink="/user/serviciospublico" routerLinkActive="active-link" (click)="closeMenu()">Servicios</li>
+              <li routerLink="/user/quienessomospublico" routerLinkActive="active-link" (click)="closeMenu()">¿Quiénes somos?</li>
+              <li routerLink="/user/contactopublico" routerLinkActive="active-link" (click)="closeMenu()">Contacto</li>
+              <li routerLink="/user/preguntaspublico" routerLinkActive="active-link" (click)="closeMenu()">Preguntas</li>
+              <li routerLink="/" (click)="closeMenu()">Iniciar Sesión</li>
+              <li routerLink="/user/crear-cuenta" (click)="closeMenu()">Crear Cuenta</li>
+          </ul>
+      </nav>
+  </div>
+</header>
