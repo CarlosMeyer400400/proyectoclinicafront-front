@@ -47,9 +47,9 @@ jobs:
       - name: Build Angular project
         run: npm run build --prod
 
-      # Paso 7: Subir artefactos de compilación (opcional, pero útil para verificar los archivos compilados)
+      # Paso 7: Subir artefactos de compilación (corregido a v3)
       - name: Upload dist folder
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3  # Cambiado a v3
         with:
           name: dist
           path: dist/
@@ -82,4 +82,3 @@ jobs:
         run: |
           npm install -g netlify-cli
           netlify deploy --prod --dir=dist/  # La carpeta dist contiene los archivos compilados
-   
