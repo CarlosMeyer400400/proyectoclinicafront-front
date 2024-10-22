@@ -82,6 +82,4 @@ jobs:
         run: |
           npm install -g netlify-cli
           netlify deploy --prod --dir=dist/  # La carpeta dist contiene los archivos compilados
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}  # Configurar en GitHub Secrets
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}  # Configurar en GitHub Secrets
+   
