@@ -13,6 +13,8 @@ export class CrearCuentaComponent implements OnInit {
   logosinfondo: string = "assets/images/logosinfondo.png"
   capchaValid: boolean = true;
   //DEFINIR VARIABLE
+  profilePicUrl: string | ArrayBuffer | null = null; // Para almacenar la URL de la imagen seleccionada
+
   siteKey: string;
   passwordVisible1: boolean = false;
   passwordVisible2: boolean = false;
@@ -48,6 +50,25 @@ export class CrearCuentaComponent implements OnInit {
 
     ]
   })
+ // Método para seleccionar archivo de imagen
+ onFileSelected(event: any): void {
+  const file: File = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.profilePicUrl = e.target.result; // Previsualización de la imagen
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+ // Método para activar el input de archivo cuando se hace clic en el botón
+ triggerFileInput(): void {
+  const fileInput = document.getElementById('file-input') as HTMLInputElement;
+  if (fileInput) {
+    fileInput.click();
+  }
+}
 
 
   public isFieldOneEqualFieldTwo(field1: string, field2: string) {

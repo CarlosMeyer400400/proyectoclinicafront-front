@@ -1,0 +1,87 @@
+name: Angular CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - master  # Asegúrate de que estás trabajando con las ramas correctas
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:  # Para activación manual
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Chequear el código
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Paso 2: Configurar Node.js (versión 20.17.0)
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.17.0'  # Cambiado a la versión de Node.js que estás usando
+
+      # Paso 3: Cache de dependencias de npm
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Paso 4: Instalar dependencias
+      - name: Install dependencies
+        run: npm install
+
+      # Paso 5: Ejecutar pruebas unitarias (si las tienes)
+      - name: Run unit tests
+        run: npm run test -- --watch=false
+
+      # Paso 6: Compilar el proyecto Angular
+      - name: Build Angular project
+        run: npm run build --prod
+
+      # Paso 7: Subir artefactos de compilación (opcional, pero útil para verificar los archivos compilados)
+      - name: Upload dist folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist/
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # El despliegue solo ocurre si el paso de compilación es exitoso
+
+    steps:
+      # Chequear el repositorio nuevamente
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Configurar Node.js para despliegue (versión 20.17.0)
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.17.0'  # Cambiado a la versión de Node.js que estás usando
+
+      # Instalar dependencias nuevamente para el despliegue
+      - name: Install dependencies for deploy
+        run: npm install
+
+      # Compilar el proyecto para asegurarse de que esté listo para el despliegue
+      - name: Build project for deploy
+        run: npm run build --prod
+
+      # Desplegar a Netlify usando Netlify CLI
+      - name: Deploy to Netlify
+        run: |
+          npm install -g netlify-cli
+          netlify deploy --prod --dir=dist/  # La carpeta dist contiene los archivos compilados
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}  # Configurar en GitHub Secrets
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}  # Configurar en GitHub Secrets
