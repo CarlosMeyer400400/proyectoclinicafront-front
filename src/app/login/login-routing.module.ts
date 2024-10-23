@@ -28,6 +28,9 @@ import { IniciopublicoComponent } from './publico/iniciopublico/iniciopublico.co
 import { UbicacionpublicoComponent } from './publico/ubicacionpublico/ubicacionpublico.component';
 import { AvisoprivacidadpublicoComponent } from './publico/avisoprivacidadpublico/avisoprivacidadpublico.component';
 
+
+import { DentalClinicHeroSliderComponent } from './publico/DentalClinicHeroSlider/DentalClinicHeroSlider.component';
+
 import { ContactopublicoComponent } from './publico/contactopublico/contactopublico.component';
 import { FooterpublicoComponent } from './publico/footerpublico/footerpublico.component';
 import { PoliticacookiespublicoComponent } from './publico/politicacookiespublico/politicacookiespublico.component';
@@ -94,6 +97,10 @@ const routes: Routes = [
         canMatch: [canMatch]
       },
 //publico
+{
+  path: 'dentalclinicheroslider',
+  component: DentalClinicHeroSliderComponent
+},
       {
         path: 'headerpublico',
         component: HeaderpublicoComponent
