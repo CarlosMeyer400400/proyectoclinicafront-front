@@ -2,19 +2,14 @@ name: PWA CI/CD Workflow
 
 # Configuración de los desencadenadores
 on:
-  # Ejecuta el workflow cuando hay un push a ramas específicas (e.g., master y main)
   push:
     branches:
       - master
       - main
-
-  # Ejecuta el workflow cuando se crea o actualiza un pull request
   pull_request:
     branches:
       - master
       - main
-
-  # Permite la ejecución manual del workflow (opcional)
   workflow_dispatch:
 
 # Definición de los trabajos (jobs)
@@ -22,9 +17,52 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]  # Ejemplo con múltiples versiones de Node.js
+
     steps:
+      # Checkout del código fuente
       - name: Checkout código
         uses: actions/checkout@v4.2.1
-      
-      - name: Ejecutar un comando de ejemplo
-        run: echo "Workflow activado correctamente"
+
+      # Configuración de Node.js con la versión seleccionada
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Cacheo de dependencias para npm
+      - name: Cache npm
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-
+            ${{ runner.os }}-node-
+
+      # Instalación de dependencias
+      - name: Instalar dependencias
+        run: npm ci  # Cambiado a npm ci para instalaciones limpias
+
+      # Configurar variables de entorno
+      - name: Configurar variables de entorno
+        run: echo "CONFIGURANDO VARIABLES DE ENTORNO"
+        env:
+          API_KEY: ${{ secrets.HOLA }}
+          TOKEN_DEPLOY: ${{ secrets.MUNDO}}
+       
+      # Construcción del proyecto
+      - name: Build del proyecto
+        run: npm run build
+
+      # Ejecutar pruebas
+      - name: Ejecutar pruebas
+        run: npm test
+
+      # (Opcional) Paso para desplegar la aplicación
+      - name: Desplegar aplicación
+        run: |
+          echo "Desplegando la aplicación..."
+          # Aquí iría el comando de despliegue, usando las variables de entorno necesarias
