@@ -35,7 +35,6 @@ import { PoliticacookiespublicoComponent } from './publico/politicacookiespublic
 import { PreguntaspublicoComponent } from './publico/preguntaspublico/preguntaspublico.component';
 import { QuienessomospublicoComponent } from './publico/quienessomospublico/quienessomospublico.component';
 import { TerminosycondicionespublicoComponent } from './publico/terminosycondicionespublico/terminosycondicionespublico.component';
-import { DentalClinicHeroSliderComponent } from './publico/DentalClinicHeroSlider/DentalClinicHeroSlider.component';
 //admon
 import { HeaderadmonComponent } from './admon/headeradmon/headeradmon.component';
 import { AdmoncitasComponent } from './admon/admoncitas/admoncitas.component';
@@ -89,7 +88,7 @@ import { LoginService } from './services/login.service';
     PreguntaspublicoComponent,
     QuienessomospublicoComponent,
     TerminosycondicionespublicoComponent,
-    DentalClinicHeroSliderComponent
+    
   ],
   imports: [
     CommonModule,

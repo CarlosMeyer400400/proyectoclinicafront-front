@@ -22,7 +22,30 @@ export class InicioComponent implements OnInit {
     this.getServicios(); // Llama a getServicios() para obtener los servicios al inicializar el componente
   }
 
+  images = [
+    { src: 'assets/images/dentist2.jpg', alt: 'Dentist at work' },
+    { src: 'assets/images/consultorio-dentistas.jpeg', alt: 'Modern dental clinic' },
+    { src: 'assets/images/young-woman-dentist.jpg', alt: 'Advanced dental technology' },
+    { src: 'assets/images/valoracion.jpg', alt: 'Patient' },
+    { src: 'assets/images/shutterstock_1036178224.jpg', alt: 'Happy patient' }
+  ];
 
+  currentIndex = 0;
+  intervalId: any;
+  isLoggedIn: boolean = false; // Variable para verificar si el usuario ha iniciado sesión
+
+  nextSlide(): void {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+  }
+
+  prevSlide(): void {
+    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+  }
+
+  selectSlide(index: number): void {
+    this.currentIndex = index;
+  }
+  
   getServicios() {
     this.loginService.getServicios().subscribe(
       (data) => {
