@@ -2,160 +2,185 @@
 
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dental Crown</title>
-    <link rel="stylesheet" href="iniciopublico.component.css">
-    <!-- Bootstrap y FontAwesome -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  </head>
 
-  
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dental Crown</title>
+  <link rel="stylesheet" href="iniciopublico.component.css">
+  <!-- Bootstrap y FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
 
-    <app-dental-clinic-hero-slider></app-dental-clinic-hero-slider>
-<section class="home" id="home">
-  <div class="content">
-  </div>
-</section>
 
-<div class="title-cards" data-aos="fade-up">
-  <h2>Nuestros servicios</h2>
-</div>
+<body>
 
-<div>
-  <div class="container-card" *ngIf="servicios.length > 0; else noServices">
-    <div *ngFor="let servicio of servicios" class="card">
-      <img [src]="servicio.imagen" alt="{{ servicio.nombre }}">
-      <div class="contenido-card">
-        <h3>{{ servicio.nombre }}</h3>
-        <p>Costo: {{ servicio.costo | currency }}</p>
-        <p>Descripción: {{ servicio.descripcion }}</p>
+  <div class="slider-container">
+    <div *ngFor="let image of images; let i = index" class="slide" [class.active]="i === currentIndex">
+      <img [src]="image.src" [alt]="image.alt">
+      <div class="overlay"></div>
+      <div class="content">
+        <h1>Clínica Dental Crown</h1>
+        <p>Experiencia en atención dental con nuestro equipo experto y tecnología avanzada</p>
+
       </div>
     </div>
+
+    <!-- Botones de navegación -->
+    <button class="prev" (click)="prevSlide()">&lt;</button>
+    <button class="next" (click)="nextSlide()">&gt;</button>
+
+    <!-- Indicadores -->
+    <div class="indicators">
+      <span *ngFor="let image of images; let i = index" [class.active]="i === currentIndex"
+        (click)="selectSlide(i)"></span>
+    </div>
   </div>
-  <ng-template #noServices>
-    <p>No hay servicios disponibles.</p>
-  </ng-template>
-</div>
+
+
+
+
+
+ 
+  <section class="home" id="home">
+    <div class="content">
+    </div>
+  </section>
+
+  <div class="title-cards" data-aos="fade-up">
+    <h2>Nuestros servicios</h2>
+  </div>
+
+  <div>
+    <div class="container-card" *ngIf="servicios.length > 0; else noServices">
+      <div *ngFor="let servicio of servicios" class="card">
+        <img [src]="servicio.imagen" alt="{{ servicio.nombre }}">
+        <div class="contenido-card">
+          <h3>{{ servicio.nombre }}</h3>
+          <p>Costo: {{ servicio.costo | currency }}</p>
+          <p>Descripción: {{ servicio.descripcion }}</p>
+        </div>
+      </div>
+    </div>
+    <ng-template #noServices>
+      <p>No hay servicios disponibles.</p>
+    </ng-template>
+  </div>
 
   <app-ubicacionpublico></app-ubicacionpublico>
   <app-footerpublico></app-footerpublico>
 
 </body>
-</html>
-  <style>
 
-    /* General Styles */
+</html>
+<style>
+  /* General Styles */
   @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
-  
+
   * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
   }
-  
+
   /* Container */
   .container-card {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
   }
-  
+
   /* Title */
   .title-cards {
-  text-align: center;
-  color: #646363;
-  font-size: 50px;
-  margin-bottom: 20px;
+    text-align: center;
+    color: #646363;
+    font-size: 50px;
+    margin-bottom: 20px;
   }
-  
+
   /* Card Styles */
   .card {
-  border-radius: 8px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
-  transition: all 400ms ease-out;
-  cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+    transition: all 400ms ease-out;
+    cursor: pointer;
   }
-  
+
   .card:hover {
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
-  transform: translateY(-3%);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-3%);
   }
-  
+
   .card img {
-  width: 100%;
-  height: 210px;
-  object-fit: cover;
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
   }
-  
+
   .contenido-card {
-  padding: 15px;
-  text-align: center;
+    padding: 15px;
+    text-align: center;
   }
-  
+
   .contenido-card h3 {
-  color: #535151;
-  margin-bottom: 15px;
+    color: #535151;
+    margin-bottom: 15px;
   }
-  
+
   .contenido-card p {
-  line-height: 1.8;
-  color: #6a6a6a;
-  font-size: 14px;
-  margin-bottom: 5px;
+    line-height: 1.8;
+    color: #6a6a6a;
+    font-size: 14px;
+    margin-bottom: 5px;
   }
-  
+
   /* Responsive Styles */
   @media only screen and (min-width: 320px) and (max-width: 768px) {
-  .container-card {
-    grid-template-columns: 1fr;
+    .container-card {
+      grid-template-columns: 1fr;
+    }
   }
-  }
-  
+
   /* Button Styles */
   .btn {
-  color: #1367c2;
-  text-decoration: none;
-  border: 2px solid #1367c2;
-  padding: 10px 20px;
-  font-size: 17px;
-  font-weight: bold;
-  background: transparent;
-  position: relative;
-  transition: all 1s;
-  overflow: hidden;
-  border-radius: 4px;
+    color: #1367c2;
+    text-decoration: none;
+    border: 2px solid #1367c2;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-weight: bold;
+    background: transparent;
+    position: relative;
+    transition: all 1s;
+    overflow: hidden;
+    border-radius: 4px;
   }
-  
+
   .btn:hover {
-  color: white;
+    color: white;
   }
-  
+
   .btn::before {
-  content: '';
-  position: absolute;
-  height: 100%;
-  width: 0%;
-  top: 0;
-  left: -40px;
-  transform: skewX(45deg);
-  background-color: #1367c2;
-  z-index: -1;
-  transition: all 1s;
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    top: 0;
+    left: -40px;
+    transform: skewX(45deg);
+    background-color: #1367c2;
+    z-index: -1;
+    transition: all 1s;
   }
-  
+
   .btn:hover::before {
-  width: 160%;
+    width: 160%;
   }
-  
-      
-  </style>
+</style>
