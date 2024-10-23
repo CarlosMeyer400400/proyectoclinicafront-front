@@ -1,52 +1,30 @@
 name: PWA CI/CD Workflow
 
-# Desencadenadores para el pipeline
-on: 
-  push:  # Corre cuando hay un push a ramas específicas
+# Configuración de los desencadenadores
+on:
+  # Ejecuta el workflow cuando hay un push a ramas específicas (e.g., master y main)
+  push:
     branches:
-      - master  # Rama de producción o staging
-  pull_request:  # Valida los cambios antes de la fusión
-  workflow_dispatch:  # Activación manual opcional
+      - master
+      - main
 
+  # Ejecuta el workflow cuando se crea o actualiza un pull request
+  pull_request:
+    branches:
+      - master
+      - main
+
+  # Permite la ejecución manual del workflow (opcional)
+  workflow_dispatch:
+
+# Definición de los trabajos (jobs)
 jobs:
   build:
-    runs-on: ubuntu-latest  # Define el sistema operativo
-
-    steps:
-      # Paso de checkout del repositorio
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.1
-
-      # Instalación de Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # Versión de Node.js requerida
-
-      # Instalación de dependencias del proyecto
-      - name: Install dependencies
-        run: npm install
-
-      # Construcción de la aplicación
-      - name: Build application
-        run: npm run build
-
-      # Opcional: configuración del caché de dependencias para optimizar
-      - name: Cache Node modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-  deploy:
     runs-on: ubuntu-latest
-    needs: build  # Ejecuta el deploy solo si el build es exitoso
 
     steps:
-      # Desplegar a un servidor o servicio
-      - name: Deploy to production/staging
-        run: echo "Aquí va el comando de despliegue real"
-
-     
+      - name: Checkout código
+        uses: actions/checkout@v4.2.1
+      
+      - name: Ejecutar un comando de ejemplo
+        run: echo "Workflow activado correctamente"
