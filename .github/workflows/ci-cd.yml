@@ -26,6 +26,12 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4.2.1
 
+      # Instalación de dependencias necesarias para Chrome headless
+      - name: Instalar dependencias necesarias para Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libnss3 xvfb
+
       # Configuración de Node.js con la versión seleccionada
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -51,11 +57,16 @@ jobs:
         run: echo "CONFIGURANDO VARIABLES DE ENTORNO"
         env:
           API_KEY: ${{ secrets.HOLA }}
-          TOKEN_DEPLOY: ${{ secrets.MUNDO}}
-       
+          TOKEN_DEPLOY: ${{ secrets.MUNDO }}
+
       # Construcción del proyecto
       - name: Build del proyecto
         run: npm run build
+
+      # Configurar Karma para usar Chrome en modo headless
+      - name: Configurar Karma para Chrome headless
+        run: |
+          echo "module.exports = function(config) { config.set({ browsers: ['ChromeHeadless'], }); };" > karma.conf.js
 
       # Ejecutar pruebas
       - name: Ejecutar pruebas
