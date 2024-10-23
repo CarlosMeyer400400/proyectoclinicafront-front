@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.14.0, 20.17.0]  # Ejemplo con múltiples versiones de Node.js
+        node-version: [18.X]  # Ejemplo con múltiples versiones de Node.js
 
     steps:
       # Checkout del código fuente
