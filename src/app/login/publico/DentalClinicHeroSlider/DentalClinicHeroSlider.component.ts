@@ -27,11 +27,11 @@ export class DentalClinicHeroSliderComponent implements OnInit, OnDestroy {
   }
 
   // Verificar el estado de inicio de sesión
-  checkLoginStatus(): void {
+  private checkLoginStatus(): void {
     this.isLoggedIn = !!localStorage.getItem('token'); // Cambia 'token' por lo que estés usando para gestionar el estado de sesión
   }
 
-  startAutoSlide(): void {
+  private startAutoSlide(): void {
     this.intervalId = setInterval(() => {
       this.nextSlide();
     }, 5000);
@@ -51,11 +51,8 @@ export class DentalClinicHeroSliderComponent implements OnInit, OnDestroy {
 
   // Función para manejar la redirección al reservar una cita
   reservarCita(): void {
-    if (this.isLoggedIn) {
-      this.router.navigate(['/user/agendar']); // Redirigir a la página de agendar si ha iniciado sesión
-    } else {
-      this.router.navigate(['/']); // Redirigir a la página principal si no ha iniciado sesión
-    }
+    const redirectPath = this.isLoggedIn ? '/user/agendar' : '/';
+    this.router.navigate([redirectPath]); // Redirigir según el estado de inicio de sesión
   }
 
   ngOnDestroy(): void {
