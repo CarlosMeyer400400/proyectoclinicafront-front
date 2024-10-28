@@ -14,12 +14,8 @@ on:
 
 # Definición de los trabajos (jobs)
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.X]  # Ejemplo con múltiples versiones de Node.js
 
     steps:
       # Checkout del código fuente
@@ -32,47 +28,22 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libnss3 xvfb
 
-      # Configuración de Node.js con la versión seleccionada
+      # Configuración de Node.js
       - name: Setup Node.js
-        uses: actions/setup-node@v3  # Updated to v3
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-
-      # Cacheo de dependencias para npm
-      - name: Cache npm
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node-version }}-
-            ${{ runner.os }}-node-
+          node-version: '18.X'  # Especifica la versión de Node.js
 
       # Instalación de dependencias
       - name: Instalar dependencias
         run: |
           npm ci --legacy-peer-deps
-          npm install @angular/pwa@17.3.11 --legacy-peer-deps
+          npm install -g testcafe --legacy-peer-deps  # Instala TestCafe globalmente
 
-      # Configurar variables de entorno
-      - name: Configurar variables de entorno
-        run: echo "CONFIGURANDO VARIABLES DE ENTORNO"
-        env:
-          API_KEY: ${{ secrets.HOLA }}
-          TOKEN_DEPLOY: ${{ secrets.MUNDO }}
-
-      # Construcción del proyecto
-      - name: Build del proyecto
-        run: npm run build
-
-      # Configurar Karma para usar Chrome en modo headless
-      - name: Configurar Karma para Chrome headless
+      # Ejecutar pruebas de TestCafe
+      - name: Ejecutar pruebas de TestCafe
         run: |
-          echo "module.exports = function(config) { config.set({ browsers: ['ChromeHeadless'], }); };" > karma.conf.js
-
-      # Ejecutar pruebas karma
-      - name: Ejecutar pruebas
-        run: npm test
+          npx testcafe chrome --headless tests/test.js # Asegúrate de que la ruta de test.js sea correcta
 
       # (Opcional) Paso para desplegar la aplicación
       - name: Desplegar aplicación
