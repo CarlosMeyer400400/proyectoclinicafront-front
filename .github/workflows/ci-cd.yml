@@ -71,7 +71,7 @@ jobs:
         run: |
           echo "module.exports = function(config) { config.set({ browsers: ['ChromeHeadless'], }); };" > karma.conf.js
 
-      # Ejecutar pruebas
+      # Ejecutar pruebas karma
       - name: Ejecutar pruebas
         run: npm test
 
