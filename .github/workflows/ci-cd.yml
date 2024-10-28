@@ -50,7 +50,10 @@ jobs:
 
       # Instalación de dependencias
       - name: Instalar dependencias
-        run: npm ci  # Cambiado a npm ci para instalaciones limpias
+        run: |
+          npm ci --legacy-peer-deps  # Usar npm ci con --legacy-peer-deps
+          npm install @angular/pwa@17.3.11 --legacy-peer-deps  # Instalar @angular/pwa con --legacy-peer-deps
+
 
       # Configurar variables de entorno
       - name: Configurar variables de entorno
