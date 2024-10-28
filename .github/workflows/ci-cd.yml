@@ -26,7 +26,17 @@ jobs:
       - name: Instalar dependencias necesarias para Chrome
         run: |
           sudo apt-get update
-          sudo apt-get install -y libnss3 xvfb
+          sudo apt-get install -y \
+            libnss3 \
+            libgconf-2-4 \
+            libxss1 \
+            libxi6 \
+            libgdk-pixbuf2.0-0 \
+            libgtk-3-0 \
+            xvfb \
+            fonts-liberation \
+            libappindicator3-1 \
+            libasound2
 
       # Configuración de Node.js
       - name: Setup Node.js
@@ -43,7 +53,7 @@ jobs:
       # Ejecutar pruebas de TestCafe en modo headless con Xvfb
       - name: Ejecutar pruebas de TestCafe
         run: |
-          npx xvfb-run -a testcafe chrome:headless tests/test.js # Asegúrate de que la ruta de test.js sea correcta
+          xvfb-run -a npx testcafe chrome:headless tests/test.js --debug-on-fail # Asegúrate de que la ruta de test.js sea correcta
 
       # (Opcional) Paso para desplegar la aplicación
       - name: Desplegar aplicación
