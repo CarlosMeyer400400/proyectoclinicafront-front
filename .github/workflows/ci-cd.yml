@@ -1,44 +1,65 @@
 name: PWA CI/CD Workflow
 
+# Configuración de los desencadenadores
 on:
   push:
     branches:
+      - master
       - main
   pull_request:
     branches:
+      - master
       - main
+  workflow_dispatch:
 
+# Definición de los trabajos (jobs)
 jobs:
-  build_and_deploy:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      # Paso 1: Clonar el repositorio
+      # Checkout del código fuente
       - name: Checkout código
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.1
 
-      # Paso 2: Configurar Node.js
+      # Instalación de dependencias necesarias para Chrome headless
+      - name: Instalar dependencias necesarias para Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 \
+            libgconf-2-4 \
+            libxss1 \
+            libxi6 \
+            libgdk-pixbuf2.0-0 \
+            libgtk-3-0 \
+            xvfb \
+            fonts-liberation \
+            libappindicator3-1 \
+            libasound2
+
+      # Configuración de Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '18.X'  # Especifica la versión de Node.js
 
-      # Paso 3: Instalar dependencias
+      # Instalación de dependencias
       - name: Instalar dependencias
-        run: npm install
+        run: |
+          npm ci --legacy-peer-deps
+          npm install -g testcafe --legacy-peer-deps  # Instala TestCafe globalmente
 
-      # Paso 4: Compilar el proyecto (ng build)
-      - name: Compilar el proyecto
-        run: ng build
+      # Ejecutar pruebas de TestCafe en modo headless con Xvfb
+      - name: Ejecutar pruebas de TestCafe
+        run: |
+          xvfb-run -a npx testcafe chrome:headless tests/test.js --debug-on-fail # Asegúrate de que la ruta de test.js sea correcta
 
-      # Paso 5: Instalar Netlify CLI
-      - name: Instalar Netlify CLI
-        run: npm install -g netlify-cli
-
-      # Paso 6: Desplegar en Netlify
+      # Paso para desplegar la aplicación en Netlify
       - name: Desplegar en Netlify
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
-          netlify deploy --prod --dir=dist/dental-front/browser --site=75df4072-c301-45aa-a441-03197b94cd06
-
+          npm install -g netlify-cli  # Asegúrate de que Netlify CLI esté instalado
+          ng build  # Compilar el proyecto con Angular
+          netlify deploy --prod --dir=dist/dentalfront/browser --site=75df4072-c301-45aa-a441-03197b94cd06
