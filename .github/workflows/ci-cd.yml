@@ -1,60 +1,44 @@
 name: PWA CI/CD Workflow
 
-# Configuración de los desencadenadores
 on:
   push:
     branches:
-      - master
       - main
   pull_request:
     branches:
-      - master
       - main
-  workflow_dispatch:
 
-# Definición de los trabajos (jobs)
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout del código fuente
+      # Paso 1: Clonar el repositorio
       - name: Checkout código
-        uses: actions/checkout@v4.2.1
+        uses: actions/checkout@v4
 
-      # Configuración de Node.js
+      # Paso 2: Configurar Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.X'  # Especifica la versión de Node.js
+          node-version: '18'
 
-      # Instalación de dependencias
+      # Paso 3: Instalar dependencias
       - name: Instalar dependencias
-        run: npm ci --legacy-peer-deps
+        run: npm install
 
-      # Ejecutar pruebas
-      - name: Ejecutar pruebas de TestCafe
-        run: |
-          echo "Ejecutando pruebas..."
-          xvfb-run -a npx testcafe chrome:headless tests/test.js --debug-on-fail
+      # Paso 4: Compilar el proyecto (ng build)
+      - name: Compilar el proyecto
+        run: ng build
 
-      # Verificar si se deben subir cambios antes del despliegue
-      - name: Filtrar cambios antes del despliegue
-        run: |
-          if [ "$(git status --porcelain)" ]; then
-            echo "Hay cambios locales. Revisa y sube manualmente antes del despliegue."
-            exit 1
-          else
-            echo "No hay cambios pendientes. Continuando con el despliegue."
-          fi
-
-      # Instalar Netlify CLI
+      # Paso 5: Instalar Netlify CLI
       - name: Instalar Netlify CLI
         run: npm install -g netlify-cli
 
-      # Desplegar en Netlify
+      # Paso 6: Desplegar en Netlify
       - name: Desplegar en Netlify
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
-          netlify deploy --prod --dir=dist --site=75df4072-c301-45aa-a441-03197b94cd06
+          netlify deploy --prod --dir=dist/dental-front/browser --site=75df4072-c301-45aa-a441-03197b94cd06
+
