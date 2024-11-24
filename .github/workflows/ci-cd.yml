@@ -63,7 +63,8 @@ jobs:
       - name: Desplegar en Netlify
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
-          npm install -g netlify-cli  # Asegúrate de que Netlify CLI esté instalado
-          ng build  # Compilar el proyecto con Angular
-          netlify deploy --prod --dir=dist/dentalfront/browser --site=75df4072-c301-45aa-a441-03197b94cd06
+          npm install -g netlify-cli  # Instala Netlify CLI globalmente
+          ng build  # Compila el proyecto con Angular
+          netlify deploy --prod --dir=dist/dentalfront/browser --site=$NETLIFY_SITE_ID
